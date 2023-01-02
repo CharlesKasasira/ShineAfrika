@@ -15,6 +15,7 @@ import { dropIn } from "../../utils/dropIn";
 import { parseCookies } from "../../utils/parseCookies";
 import UpdateModal from "../../components/managers/updateModal";
 import RenewModal from "../../components/managers/renewModal";
+import axios from "axios";
 
 export default function Site({
   product,
@@ -144,6 +145,13 @@ export default function Site({
 
       if (data) {
         toast.success(`Successfully extended`, { position: "top-center" });
+        await axios.post("/api/extendedProduct", {
+          email: product.email || contactPerson.email,
+          product: "website",
+          product_owner: `${contactPerson.first_name} ${contactPerson.last_name}`,
+          product_link: product.name,
+          telephone_number: product.telephone_number,
+        });
       }
       if (error) {
         toast.error(`${error?.message}`, { position: "top-center" });

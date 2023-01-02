@@ -53,7 +53,7 @@ function UpdateModal({
                 contact_person: product.contact_person,
                 telephone_number:
                   product.telephone_number &&
-                  product.telephone_number.slice(4, 13),
+                  `${product.telephone_number}`.slice(4, 13),
               }}
             >
               {({
@@ -164,7 +164,7 @@ function UpdateModal({
                           value={
                             newCustomer?.contact_number
                               ? newCustomer?.contact_number.slice(4, 13)
-                              : product?.telephone_number.slice(4, 13)
+                              : `${product.telephone_number}`.slice(4, 13)
                           }
                         />
                         <select
