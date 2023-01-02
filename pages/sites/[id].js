@@ -74,6 +74,14 @@ export default function Site({
       if (data) {
         toast.success(`Successfully Renewed`, { position: "top-center" });
 
+        await axios.post("/api/extendedProduct", {
+          email: product.email || contactPerson.email,
+          product: "website",
+          product_owner: `${contactPerson.first_name} ${contactPerson.last_name}`,
+          product_link: product.name,
+          telephone_number: product.telephone_number,
+        });
+
         const { data, error } = await supabase
           .from("accounts")
           .update({
