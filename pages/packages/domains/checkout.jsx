@@ -30,7 +30,7 @@ function Checkout({ person }) {
         phone: values.phone,
         secret_code: values.secret_code,
         mobile_money_company_id: paymentMethod,
-        reason: "ShineAfrika",
+        reason: "Ablestate Cloud",
         metadata: "Paying for hosting",
       })
       .then(async (res) => {
@@ -71,9 +71,11 @@ function Checkout({ person }) {
           </div>
         </div>
 
-        {JSON.parse(person.user) && <div className="mt-3">
-          <h3>Pay with wallet balance</h3>
-        </div>}
+        {JSON.parse(person.user) && (
+          <div className="mt-3">
+            <h3>Pay with wallet balance</h3>
+          </div>
+        )}
 
         <h3 className="mt-10 text-xl">Payment is easy, just like 1, 2, 3.</h3>
 

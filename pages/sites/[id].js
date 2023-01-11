@@ -207,7 +207,7 @@ export default function Site({
   return (
     <div>
       <Head>
-        <title>{product ? product.name : "loading..."} - Shine Africa</title>
+        <title>{product ? product.name : "loading..."} - Ablestate Cloud</title>
       </Head>
 
       <main className="pt-[70px] mx-5 md:mx-20 relative pb-6 min-h-screen">

@@ -19,7 +19,7 @@ function Cart() {
   return (
     <div>
       <Head>
-        <title>Cart - Shine Afrika</title>
+        <title>Cart - Ablestate Cloud</title>
       </Head>
       <PackageNav />
       <HelpDeck />

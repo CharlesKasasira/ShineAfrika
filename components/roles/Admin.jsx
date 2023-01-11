@@ -52,7 +52,7 @@ function Admin({ websites, customers }) {
           {notifications && notifications.length > 0
             ? `(${notifications.length})`
             : ""}{" "}
-          Dashboard - Shine Afrika
+          Dashboard - Ablestate Cloud
         </title>
       </Head>
 

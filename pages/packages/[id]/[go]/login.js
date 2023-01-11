@@ -22,42 +22,43 @@ function LoginFirst() {
   );
 
   const [searched, setSearched] = useState(null);
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
   const [run, setRun] = useState(false);
 
-  const handleSubmit = async (event, {email, password}, resetForm) => {
+  const handleSubmit = async (event, { email, password }, resetForm) => {
     event.preventDefault();
-    setLoading(true)
-    try{
-      const {user,session, error} = await supabase.auth.signIn({ email: email, password })
-      if(user){
-        setLoading(false)
-        if(domain){
-          Router.push(`/packages/${id}/${go}/checkout/?domain=${domain}`)
+    setLoading(true);
+    try {
+      const { user, session, error } = await supabase.auth.signIn({
+        email: email,
+        password,
+      });
+      if (user) {
+        setLoading(false);
+        if (domain) {
+          Router.push(`/packages/${id}/${go}/checkout/?domain=${domain}`);
         } else {
-          Router.push(`/packages/${id}/${go}/`)
+          Router.push(`/packages/${id}/${go}/`);
         }
-        
       }
-      if(error){
-        setLoading(false)
-        toast.error(`${error?.message}`, {position: "top-center"})
+      if (error) {
+        setLoading(false);
+        toast.error(`${error?.message}`, { position: "top-center" });
       }
-    }catch(error){
-      setLoading(false)
+    } catch (error) {
+      setLoading(false);
     }
 
-    document.loginForm.reset()
-    resetForm({ email: "", password: "" })
-
+    document.loginForm.reset();
+    resetForm({ email: "", password: "" });
   };
 
-  const [cart, setCart] = useState([])
+  const [cart, setCart] = useState([]);
 
   return (
     <div>
       <Head>
-        <title>Login - Shine Afrika</title>
+        <title>Login - Ablestate Cloud</title>
       </Head>
       <PackageNav />
       <HelpDeck />
@@ -76,7 +77,7 @@ function LoginFirst() {
             dirty,
             handleChange,
             handleBlur,
-            resetForm
+            resetForm,
           }) => {
             return (
               <Form
@@ -85,9 +86,14 @@ function LoginFirst() {
                 name="loginForm"
               >
                 <div className="flex justify-between items-center">
-            <h1 className="font-medium text-xl mt-5">Login</h1>
-            <a href={`/packages/${id}/${go}/create-account/?domain=${domain}`} className="underline">or create account</a>
-          </div>
+                  <h1 className="font-medium text-xl mt-5">Login</h1>
+                  <a
+                    href={`/packages/${id}/${go}/create-account/?domain=${domain}`}
+                    className="underline"
+                  >
+                    or create account
+                  </a>
+                </div>
                 <div className="flex flex-col gap-2  my-2">
                   <label htmlFor="email">Email</label>
                   <div className="w-full">
@@ -103,9 +109,7 @@ function LoginFirst() {
                     />
                     <div
                       className={`${
-                        errors?.email && touched?.email
-                          ? "block"
-                          : "hidden"
+                        errors?.email && touched?.email ? "block" : "hidden"
                       }`}
                     >
                       <label
@@ -115,9 +119,7 @@ function LoginFirst() {
                             : "text-transparent text-xs"
                         }`}
                       >{`${
-                        errors?.email && touched?.email
-                          ? errors.email
-                          : "hide"
+                        errors?.email && touched?.email ? errors.email : "hide"
                       }`}</label>
                     </div>
                   </div>
@@ -156,11 +158,14 @@ function LoginFirst() {
                     </div>
                   </div>
                 </div>
-                <button type="submit" disabled={!(isValid && dirty)} className="bg-[#1D1F20] text-white py-1 px-3 my-2 mt-4 hover:bg-[#292C2D] flex items-center cursor-pointer">
-                {loading && CKLoader}
+                <button
+                  type="submit"
+                  disabled={!(isValid && dirty)}
+                  className="bg-[#1D1F20] text-white py-1 px-3 my-2 mt-4 hover:bg-[#292C2D] flex items-center cursor-pointer"
+                >
+                  {loading && CKLoader}
                   {loading ? "Loading" : "Login"}
                 </button>
-                
               </Form>
             );
           }}

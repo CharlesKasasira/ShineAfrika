@@ -16,6 +16,7 @@ export default function Home({}) {
   const [loading, setLoading] = useState(false);
   const { setSession } = useAuth();
   const [cookie, setCookie] = useCookies(["user"]);
+  const [showPassword, togglePassword] = useState(false);
 
   const handleSubmit = async (
     event,
@@ -60,7 +61,7 @@ export default function Home({}) {
   return (
     <>
       <Head>
-        <title>Welcome to Shine Afrika</title>
+        <title>Welcome to Ablestate</title>
       </Head>
       <ToastContainer />
       <main className="w-screen h-screen flex justify-center items-center relative md:pb-6 min-h-screen">
@@ -92,7 +93,7 @@ export default function Home({}) {
                       type="email"
                       name="email"
                       id="email"
-                      className="outline outline-1 py-1 px-2 placeholder:text-[#bcbfc2] w-full rounded-sm"
+                      className="outline outline-1 py-1 px-2 placeholder:text-[#bcbfc2] w-full rounded-sm appearance-none focus:border-0 focus:ring-0 focus:outline-black"
                       placeholder="Enter Email"
                       onChange={handleChange("email")}
                       onBlur={handleBlur("email")}
@@ -118,16 +119,24 @@ export default function Home({}) {
                 <div className="flex flex-col gap-2 my-2">
                   <label htmlFor="password">Password</label>
                   <div className="w-full">
-                    <input
-                      type="password"
-                      name="password"
-                      id="password"
-                      className="outline outline-1 py-1 px-2 placeholder:text-[#bcbfc2] w-full rounded-sm"
-                      placeholder="Enter Password"
-                      onChange={handleChange("password")}
-                      onBlur={handleBlur("password")}
-                      value={values.password}
-                    />
+                    <div className="relative">
+                      <input
+                        type={showPassword ? "text" : "password"}
+                        name="password"
+                        id="password"
+                        className="outline outline-1 py-1 px-2 placeholder:text-[#bcbfc2] w-full rounded-sm appearance-none focus:border-0 focus:ring-0 focus:outline-black"
+                        placeholder="Enter Password"
+                        onChange={handleChange("password")}
+                        onBlur={handleBlur("password")}
+                        value={values.password}
+                      />
+                      <span
+                        className="absolute right-2 top-1 text-sm cursor-pointer"
+                        onClick={() => togglePassword((prev) => !prev)}
+                      >
+                        {showPassword ? "hide" : "show"}
+                      </span>
+                    </div>
                     <div
                       className={`${
                         errors?.password && touched?.password

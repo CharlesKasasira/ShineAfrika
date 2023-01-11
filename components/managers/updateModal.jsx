@@ -129,9 +129,7 @@ function UpdateModal({
                           className="py-2 px-2 bg-transparent  outline outline-1 outline-[#c1c7d6] rounded-sm w-full"
                           onChange={(e) => {
                             setFieldValue("contact_person", e.target.value);
-                            setCustomerId(e.target.value);
-                            getNewCustomer(e.target.value, setFieldValue);
-                            setSelected(!selected);
+                            // setSelected(!selected);
                           }}
                           onBlur={handleBlur("contact_person")}
                           value={values.contact_person}

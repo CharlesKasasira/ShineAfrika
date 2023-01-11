@@ -54,7 +54,7 @@ export default function ForgotPassword() {
   return (
     <>
       <Head>
-        <title>Password Reset - Shine Afrika</title>
+        <title>Password Reset - Ablestate Cloud</title>
       </Head>
       <ToastContainer />
       <main className="w-screen h-screen flex justify-center items-center relative pb-6 min-h-screen">
