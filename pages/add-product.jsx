@@ -146,7 +146,7 @@ export default function AddSite() {
   return (
     <>
       <Head>
-        <title>Add Product - Shine Afrika</title>
+        <title>Add Product - Ablestate Cloud</title>
       </Head>
       <main className="pt-[70px] mx-5 md:mx-20 relative pb-6 min-h-screen">
         <section className="flex justify-between items-center">
@@ -303,11 +303,14 @@ export default function AddSite() {
                           .select("email, contact_number")
                           .eq("id", e.target.value)
                           .single();
-                        
-                        if(data){
-                          setFieldValue("telephone_number", data.contact_number)
-                          setFieldValue("email", data.email)
-                        } 
+
+                        if (data) {
+                          setFieldValue(
+                            "telephone_number",
+                            data.contact_number
+                          );
+                          setFieldValue("email", data.email);
+                        }
                         setSelected(!selected);
                       }}
                       onBlur={handleBlur("contact_person")}
@@ -364,7 +367,11 @@ export default function AddSite() {
                       className=" py-2 px-2 ml-16 bg-transparent flex-grow focus:outline-none"
                       onChange={handleChange("telephone_number")}
                       onBlur={handleBlur("telephone_number")}
-                      value={values.telephone_number ? values.telephone_number.substring(4, 13) : ""}
+                      value={
+                        values.telephone_number
+                          ? values.telephone_number.substring(4, 13)
+                          : ""
+                      }
                     />
                     <select
                       name=""

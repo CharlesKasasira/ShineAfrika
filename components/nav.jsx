@@ -24,7 +24,8 @@ export default function Navbar({ user }) {
   const [avatar, setAvatar] = useState("");
   // const [notifications, setNotifications] = useState([]);
   const router = useRouter();
-  const { signOut, loading, setLoading, notifications, setNotifications } = useAuth();
+  const { signOut, loading, setLoading, notifications, setNotifications } =
+    useAuth();
   const { query } = useKBar();
 
   const [cookie] = useCookies(["user"]);

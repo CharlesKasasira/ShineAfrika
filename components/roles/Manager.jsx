@@ -24,8 +24,7 @@ function Manager({ websites, customers }) {
   const [sortBy, setSortBy] = useState("");
   const checkbox = useRef();
   const deleteArrayIds = deleteArray.map((site) => site[0].toString());
-
-  const [activeIndex, setActiveIndex] = useState(null)
+  const [activeIndex, setActiveIndex] = useState(null);
 
   const img_url =
     "https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://charleskasra.com&size=64";
@@ -55,7 +54,7 @@ function Manager({ websites, customers }) {
           {notifications && notifications.length > 0
             ? `(${notifications.length})`
             : ""}{" "}
-          Dashboard - Shine Afrika
+          Dashboard - Ablestate Cloud
         </title>
       </Head>
 

@@ -21,7 +21,7 @@ function Tickets({ tickets, customers, page }) {
           {notifications && notifications.length > 0
             ? `(${notifications.length})`
             : ""}{" "}
-          Tickets - Shine Afrika
+          Tickets - Ablestate Cloud
         </title>
       </Head>
       <main className="pt-[70px] mx-3 md:mx-16 relative pb-6 min-h-screen flex flex-col">
@@ -80,7 +80,10 @@ export default Tickets;
 export const getServerSideProps = async ({ req, res, query: { page = 0 } }) => {
   const person = parseCookies(req);
   if (res) {
-    if (!person.user || JSON.parse(person?.user).user.user_metadata.role === "customer") {
+    if (
+      !person.user ||
+      JSON.parse(person?.user).user.user_metadata.role === "customer"
+    ) {
       return {
         redirect: {
           permanent: false,

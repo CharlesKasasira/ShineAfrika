@@ -93,7 +93,7 @@ export default function Home({}) {
                       type="email"
                       name="email"
                       id="email"
-                      className="outline outline-1 py-1 px-2 placeholder:text-[#bcbfc2] w-full rounded-sm"
+                      className="outline outline-1 py-1 px-2 placeholder:text-[#bcbfc2] w-full rounded-sm appearance-none focus:border-0 focus:ring-0 focus:outline-black"
                       placeholder="Enter Email"
                       onChange={handleChange("email")}
                       onBlur={handleBlur("email")}

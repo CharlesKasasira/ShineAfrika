@@ -1,6 +1,6 @@
 import Head from "next/head";
 import { supabase } from "../utils/supabase";
-import { resetPasswordSchema } from "../utils/validation";
+import { updatePasswordSchema } from "../utils/validation";
 import { Formik, Form } from "formik";
 import Router from "next/router";
 import { useState } from "react";
@@ -13,40 +13,42 @@ import { toast, ToastContainer } from "react-toastify";
 export default function ForgotPassword() {
   const [loading, setLoading] = useState(false);
 
-  const handleSubmit = async (event, { email }, resetForm) => {
+  const handleSubmit = async (
+    event,
+    { password, confirm_password },
+    resetForm
+  ) => {
     event.preventDefault();
     setLoading(true);
+
     try {
-      // const { data, error } = await supabase.auth.api.resetPasswordForEmail(
-      //   email
-      // );
-
-      const { data, error } = await supabase.auth.api.resetPasswordForEmail(
-        email,
-        { redirectTo: "https://bills.ablestate.co/update-password" }
-      );
-
-      console.log(data);
-
-      if (data) {
-        setLoading(false);
-        toast.success(`A Reset Password Email has been sent`, {
-          position: "top-center",
+      if (password === confirm_password) {
+        const { data, error } = await supabase.auth.update({
+          password: password,
         });
-        setTimeout(() => {
-          Router.push("/login");
-        }, 1500);
-      }
-      if (error) {
-        setLoading(false);
-        toast.error(`${error?.message}`, { position: "top-center" });
+        if (data) {
+          setLoading(false);
+          toast.success(`Successfully updated password`, {
+            position: "top-center",
+          });
+          setTimeout(() => {
+            Router.push("/login");
+          }, 1500);
+        }
+        if (error) {
+          setLoading(false);
+          toast.error(`${error?.message}`, { position: "top-center" });
+        }
+      } else {
+        toast.error(`Password didnot match`, { position: "top-center" });
       }
     } catch (error) {
       setLoading(false);
     }
 
     document.resetForm.reset();
-    resetForm({ email: "" });
+    resetForm({ password: "", confirm_password: "" });
+    setLoading(false);
   };
 
   return (
@@ -57,8 +59,8 @@ export default function ForgotPassword() {
       <ToastContainer />
       <main className="w-screen h-screen flex justify-center items-center relative pb-6 min-h-screen">
         <Formik
-          initialValues={{ email: "" }}
-          validationSchema={resetPasswordSchema}
+          initialValues={{ password: "", confirm_password: "" }}
+          validationSchema={updatePasswordSchema}
         >
           {({
             values,
@@ -77,34 +79,73 @@ export default function ForgotPassword() {
                 name="resetForm"
               >
                 <h1 className="text-3xl font-bold text-center">
-                  Forgot Password
+                  Update Password
                 </h1>
+
                 <div className="flex flex-col gap-2 my-2">
-                  <label htmlFor="email">Email</label>
+                  <label htmlFor="password">Password</label>
                   <div className="w-full">
                     <input
-                      type="email"
-                      name="email"
-                      id="email"
+                      type="password"
+                      name="password"
+                      id="password"
                       className="outline outline-1 py-1 px-2 placeholder:text-[#bcbfc2] w-full rounded-sm"
-                      placeholder="enter email"
-                      onChange={handleChange("email")}
-                      onBlur={handleBlur("email")}
-                      value={values.email}
+                      placeholder="Enter Password"
+                      onChange={handleChange("password")}
+                      onBlur={handleBlur("password")}
+                      value={values.password}
                     />
                     <div
                       className={`${
-                        errors?.email && touched?.email ? "block" : "hidden"
+                        errors?.password && touched?.password
+                          ? "block"
+                          : "hidden"
                       }`}
                     >
                       <label
                         className={`${
-                          errors?.email && touched?.email
+                          errors?.password && touched?.password
                             ? "text-red-500 text-xs"
                             : "text-transparent text-xs"
                         }`}
                       >{`${
-                        errors?.email && touched?.email ? errors.email : "hide"
+                        errors?.password && touched?.password
+                          ? errors.password
+                          : "hide"
+                      }`}</label>
+                    </div>
+                  </div>
+                </div>
+                <div className="flex flex-col gap-2 my-2">
+                  <label htmlFor="confirm_password">Confirm Password</label>
+                  <div className="w-full">
+                    <input
+                      type="password"
+                      name="confirm_password"
+                      id="confirm_password"
+                      className="outline outline-1 py-1 px-2 placeholder:text-[#bcbfc2] w-full rounded-sm"
+                      placeholder="Confirm Password"
+                      onChange={handleChange("confirm_password")}
+                      onBlur={handleBlur("confirm_password")}
+                      value={values.confirm_password}
+                    />
+                    <div
+                      className={`${
+                        errors?.confirm_password && touched?.confirm_password
+                          ? "block"
+                          : "hidden"
+                      }`}
+                    >
+                      <label
+                        className={`${
+                          errors?.confirm_password && touched?.confirm_password
+                            ? "text-red-500 text-xs"
+                            : "text-transparent text-xs"
+                        }`}
+                      >{`${
+                        errors?.confirm_password && touched?.confirm_password
+                          ? errors.confirm_password
+                          : "hide"
                       }`}</label>
                     </div>
                   </div>

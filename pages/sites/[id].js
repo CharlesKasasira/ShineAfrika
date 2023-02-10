@@ -15,6 +15,7 @@ import { dropIn } from "../../utils/dropIn";
 import { parseCookies } from "../../utils/parseCookies";
 import UpdateModal from "../../components/managers/updateModal";
 import RenewModal from "../../components/managers/renewModal";
+import axios from "axios";
 
 export default function Site({
   product,
@@ -72,6 +73,14 @@ export default function Site({
 
       if (data) {
         toast.success(`Successfully Renewed`, { position: "top-center" });
+
+        await axios.post("/api/extendedProduct", {
+          email: product.email || contactPerson.email,
+          product: "website",
+          product_owner: `${contactPerson.first_name} ${contactPerson.last_name}`,
+          product_link: product.name,
+          telephone_number: product.telephone_number,
+        });
 
         const { data, error } = await supabase
           .from("accounts")
@@ -144,6 +153,13 @@ export default function Site({
 
       if (data) {
         toast.success(`Successfully extended`, { position: "top-center" });
+        await axios.post("/api/extendedProduct", {
+          email: product.email || contactPerson.email,
+          product: "website",
+          product_owner: `${contactPerson.first_name} ${contactPerson.last_name}`,
+          product_link: product.name,
+          telephone_number: product.telephone_number,
+        });
       }
       if (error) {
         toast.error(`${error?.message}`, { position: "top-center" });
@@ -191,7 +207,7 @@ export default function Site({
   return (
     <div>
       <Head>
-        <title>{product ? product.name : "loading..."} - Shine Africa</title>
+        <title>{product ? product.name : "loading..."} - Ablestate Cloud</title>
       </Head>
 
       <main className="pt-[70px] mx-5 md:mx-20 relative pb-6 min-h-screen">
