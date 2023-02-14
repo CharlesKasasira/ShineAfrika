@@ -49,7 +49,7 @@ export default function Customers({ customers, managers, websites }) {
           {notifications && notifications.length > 0
             ? `(${notifications.length})`
             : ""}{" "}
-          Customers - Shine Afrika
+          Customers - Ablestate Cloud
         </title>
       </Head>
 
@@ -275,7 +275,10 @@ export const getServerSideProps = async ({ req, res }) => {
 
   const person = parseCookies(req);
   if (res) {
-    if (!person.user || JSON.parse(person?.user).user.user_metadata.role === "customer") {
+    if (
+      !person.user ||
+      JSON.parse(person?.user).user.user_metadata.role === "customer"
+    ) {
       return {
         redirect: {
           permanent: false,

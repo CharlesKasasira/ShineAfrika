@@ -49,10 +49,10 @@ export default function Customer({ websites, customers, person }) {
     <>
       <Head>
         <title>
-        {notifications && notifications.length > 0
+          {notifications && notifications.length > 0
             ? `(${notifications.length})`
             : ""}{" "}
-          Dashboard - Shine Afrika
+          Dashboard - Ablestate Cloud
         </title>
       </Head>
       <ToastContainer />

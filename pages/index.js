@@ -1,6 +1,5 @@
 import { supabase } from "../utils/supabase";
 import { useState, useEffect } from "react";
-import { toast } from "react-toastify";
 import { useAuth } from "../utils/auth";
 import Manager from "../components/roles/Manager";
 import Customer from "../components/roles/Customer";
@@ -12,7 +11,6 @@ export default function Home({ websites, customers, person }) {
   const { user } = useAuth();
   const [welcome, setWelcome] = useState(true);
   const { role } = JSON.parse(person.user).user.user_metadata || "customer";
-
   useEffect(() => {}, [welcome]);
   const router = useRouter();
 
@@ -64,7 +62,7 @@ export default function Home({ websites, customers, person }) {
                 </div>
                 <div className="p-5">
                   <h2 className="font-bold text-2xl">
-                    Welcome to Shineafrika 🎉
+                    Welcome to Ablestate Cloud 🎉
                   </h2>
                   <p className="mb-2 text-gray-500">
                     Lets automate your online presence.

@@ -56,7 +56,7 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>Register - Shine Afrika</title>
+        <title>Register - Ablestate</title>
       </Head>
       <ToastContainer />
       <div className="w-screen h-screen flex justify-center items-center relative pb-6 min-h-screen">

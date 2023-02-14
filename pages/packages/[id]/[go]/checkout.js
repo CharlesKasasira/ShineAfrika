@@ -27,7 +27,7 @@ function Checkout({ account_balance }) {
         phone: values.phone,
         secret_code: values.secret_code,
         mobile_money_company_id: paymentMethod,
-        reason: "ShineAfrika",
+        reason: "Ablestate Cloud",
         metadata: "Paying for hosting",
       })
       .then(async (res) => {
@@ -93,7 +93,7 @@ function Checkout({ account_balance }) {
             >
               {/* <CKMtn /> */}
               <span className="font-bold text-white text-sm">
-                <p>ShineAfrika</p>
+                <p>Ablestate</p>
                 <p>Wallet</p>
               </span>
             </span>

@@ -61,7 +61,7 @@ export default function AddClient() {
   return (
     <>
       <Head>
-        <title>Add Customer - Shine Afrika</title>
+        <title>Add Customer - Ablestate Cloud</title>
       </Head>
       <main className="pt-[70px] mx-5 md:mx-20 relative pb-6 min-h-screen">
         <section className="flex justify-between items-center">
@@ -95,7 +95,10 @@ export default function AddClient() {
             return (
               <Form className="my-5">
                 <div className="flex flex-col md:flex-row md:items-center md:gap-10 my-3 md:my-5">
-                  <label htmlFor="email" className="text-md md:text-xl mb-1 w-4/12 md:w-2/12">
+                  <label
+                    htmlFor="email"
+                    className="text-md md:text-xl mb-1 w-4/12 md:w-2/12"
+                  >
                     Email
                   </label>
                   <div className="w-12/12 md:w-8/12">
@@ -113,7 +116,10 @@ export default function AddClient() {
                   </div>
                 </div>
                 <div className="flex flex-col md:flex-row md:items-center md:gap-10 my-5">
-                  <label htmlFor="" className="text-md md:text-xl mb-1 w-4/12 md:w-2/12">
+                  <label
+                    htmlFor=""
+                    className="text-md md:text-xl mb-1 w-4/12 md:w-2/12"
+                  >
                     First Name
                   </label>
                   <div className="w-12/12 md:w-8/12">
@@ -130,7 +136,10 @@ export default function AddClient() {
                   </div>
                 </div>
                 <div className="flex flex-col md:flex-row md:items-center md:gap-10 my-5">
-                  <label htmlFor="" className="text-md md:text-xl mb-1 w-4/12 md:w-2/12">
+                  <label
+                    htmlFor=""
+                    className="text-md md:text-xl mb-1 w-4/12 md:w-2/12"
+                  >
                     Last Name
                   </label>
                   <div className="w-12/12 md:w-8/12">

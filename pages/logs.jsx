@@ -11,7 +11,7 @@ import { useRouter } from "next/router";
 
 export default function Home({ logs, page }) {
   const { notifications } = useAuth();
-  const router = useRouter()
+  const router = useRouter();
   return (
     <>
       <Head>
@@ -19,7 +19,7 @@ export default function Home({ logs, page }) {
           {notifications && notifications.length > 0
             ? `(${notifications.length})`
             : ""}{" "}
-          Logs - Shine Afrika
+          Logs - Ablestate Cloud
         </title>
       </Head>
       <main className="pt-[70px] relative pb-6 min-h-screen">
@@ -106,7 +106,10 @@ export const getServerSideProps = async ({ req, res, query: { page = 0 } }) => {
 
   const person = parseCookies(req);
   if (res) {
-    if (!person.user || JSON.parse(person?.user).user.user_metadata.role === "customer") {
+    if (
+      !person.user ||
+      JSON.parse(person?.user).user.user_metadata.role === "customer"
+    ) {
       return {
         redirect: {
           permanent: false,
@@ -120,7 +123,7 @@ export const getServerSideProps = async ({ req, res, query: { page = 0 } }) => {
   return {
     props: {
       logs,
-      page: +page
+      page: +page,
     },
   };
 };
