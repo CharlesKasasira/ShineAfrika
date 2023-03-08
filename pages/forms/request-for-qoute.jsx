@@ -51,6 +51,7 @@ function requestForQuote() {
 
   const handleSubmit = async (values) => {
     // console.log("The values are from handleSubmit are: ", values);
+
     const { data, error: err } = await supabase
       .from("survey_activity")
       .insert({ email: email, set_id: form.id });
@@ -73,6 +74,7 @@ function requestForQuote() {
     // const { error } = await supabase.from("answers").insert(myAnswers);
 
   };
+
   return (
     <div className="w-screen">
       <Head>
