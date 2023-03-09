@@ -44,7 +44,7 @@ export default function Site({ profile, manager, websites }) {
       });
 
     setPopUp(false);
-    Router.push("/customers");
+    Router.push("/managers");
   };
 
   const handleUpdate = async (event, values) => {
@@ -101,7 +101,11 @@ export default function Site({ profile, manager, websites }) {
             <section className="">
               <p>{profile.role}</p>
               <p>{profile.email}</p>
-              <p>{profile.contact_number === "+256null" ? "N/A" : profile.contact_number}</p>
+              <p>
+                {profile.contact_number === "+256null"
+                  ? "N/A"
+                  : profile.contact_number}
+              </p>
               <br />
 
               {manager && (
@@ -186,12 +190,7 @@ export default function Site({ profile, manager, websites }) {
                         email: profile.email,
                       }}
                     >
-                      {({
-                        values,
-                        handleChange,
-                        handleBlur,
-                        resetForm,
-                      }) => {
+                      {({ values, handleChange, handleBlur, resetForm }) => {
                         return (
                           <Form
                             className="my-5 px-4"
@@ -442,7 +441,10 @@ export const getServerSideProps = async ({ req, res, params }) => {
 
   const person = parseCookies(req);
   if (res) {
-    if (!person.user || JSON.parse(person?.user).user.user_metadata.role === "customer") {
+    if (
+      !person.user ||
+      JSON.parse(person?.user).user.user_metadata.role === "customer"
+    ) {
       return {
         redirect: {
           permanent: false,

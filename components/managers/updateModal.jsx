@@ -13,6 +13,8 @@ function UpdateModal({
   loading,
   customers,
 }) {
+  console.log(JSON.stringify(product?.profiles));
+  console.log(customers);
   return (
     <AnimatePresence>
       {popUpdate && (
@@ -50,8 +52,11 @@ function UpdateModal({
                 product_type: product.product_type,
                 product_price: product.product_price,
                 website_link: product.website_link,
-                contact_person: product.contact_person,
-                telephone_number: product.telephone_number,
+                contact_person: JSON.stringify(product?.profiles),
+                telephone_number:
+                  product?.profiles &&
+                  product.profiles?.contact_number.slice(4, 13),
+                email: product?.profiles && product.profiles?.email,
               }}
             >
               {({
@@ -68,7 +73,24 @@ function UpdateModal({
                 return (
                   <Form
                     className="my-5 px-4"
-                    onSubmit={(event) => handleUpdate(event, values)}
+                    onSubmit={(event) => {
+                      event.preventDefault();
+                      // setFieldValue(
+                      //   "contact_person",
+                      //   JSON.parse(values.contact_person)?.id
+                      // );
+
+                      const { contact_person, ...others } = values;
+
+                      // console.log("values are:", {
+                      //   contact_person: JSON.parse(contact_person)?.id,
+                      //   ...others,
+                      // });
+                      handleUpdate({
+                        contact_person: JSON.parse(contact_person)?.id,
+                        ...others,
+                      });
+                    }}
                   >
                     <div className="flex flex-col gap-1 my-2">
                       <label htmlFor="name" className="">
@@ -122,21 +144,38 @@ function UpdateModal({
                       <label htmlFor="contact_person">Contact Person</label>
                       <div className="flex justify-between items-center gap-2 w-full">
                         <select
-                          name=""
+                          name="contact_person"
                           id="contact_person"
                           className="py-2 px-2 bg-transparent  outline outline-1 outline-[#c1c7d6] rounded-sm w-full"
                           onChange={(e) => {
-                            setFieldValue("contact_person", e.target.value);
+                            setFieldValue(
+                              "contact_person",
+                              `${e.target.value}`
+                            );
+                            setFieldValue(
+                              "telephone_number",
+                              JSON.parse(e.target.value)?.contact_number
+                                ? JSON.parse(
+                                    e.target.value
+                                  )?.contact_number.slice(4, 13)
+                                : ""
+                            );
+                            setFieldValue(
+                              "email",
+                              JSON.parse(e.target.value)?.email
+                            );
+                            console.log("event is", JSON.parse(e.target.value));
                             // setSelected(!selected);
                           }}
                           onBlur={handleBlur("contact_person")}
                           value={values.contact_person}
                         >
                           <option value="">Select Customer</option>
+                          <option value="hello">Select Customer</option>
                           {customers &&
                             customers.map((customer, index) => (
                               <option
-                                value={customer.id}
+                                value={JSON.stringify(customer)}
                                 key={index}
                                 className="outline bg-pink-200"
                               >
@@ -157,11 +196,12 @@ function UpdateModal({
                           className=" py-2 px-2 ml-16 bg-transparent flex-grow focus:outline-none"
                           onChange={handleChange("telephone_number")}
                           onBlur={handleBlur("telephone_number")}
-                          value={
-                            newCustomer?.contact_number
-                              ? newCustomer?.contact_number.slice(4, 13)
-                              : product?.telephone_number
-                          }
+                          // value={
+                          //   newCustomer?.contact_number
+                          //     ? newCustomer?.contact_number.slice(4, 13)
+                          //     : product?.contactPerson?.contact_number
+                          // }
+                          value={values.telephone_number}
                         />
                         <select
                           name=""
@@ -169,7 +209,7 @@ function UpdateModal({
                           className="bg-transparent absolute left-0 h-full w-16 border-r-2"
                           onChange={(e) => setCountryCode(e.target.value)}
                         >
-                          <option value="+256">+256</option>
+                          <option value="256">+256</option>
                         </select>
                       </div>
                     </div>
@@ -183,7 +223,8 @@ function UpdateModal({
                         className="py-2 px-2 bg-transparent  outline outline-1 outline-[#c1c7d6] rounded w-full"
                         onChange={handleChange("email")}
                         onBlur={handleBlur("email")}
-                        value={newCustomer ? newCustomer?.email : product.email}
+                        value={values.email}
+                        // value={newCustomer ? newCustomer?.email : product.email}
                       />
                     </div>
 

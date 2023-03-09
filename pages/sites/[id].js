@@ -33,7 +33,7 @@ export default function Site({
   const [popUpdate, setPopUpdate] = useState(false);
   const [loading, setLoading] = useState(false);
   const [newCustomer, setNewCustomer] = useState(null);
-  const [countryCode, setCountryCode] = useState("+256");
+  const [countryCode, setCountryCode] = useState("256");
   const [renewPeriod, setRenewPeriod] = useState(1);
 
   const { user } = useAuth();
@@ -79,7 +79,7 @@ export default function Site({
           product: "website",
           product_owner: `${contactPerson.first_name} ${contactPerson.last_name}`,
           product_link: product.name,
-          telephone_number: product.telephone_number,
+          telephone_number: contactPerson?.contact_number,
         });
 
         const { data, error } = await supabase
@@ -158,7 +158,7 @@ export default function Site({
           product: "website",
           product_owner: `${contactPerson.first_name} ${contactPerson.last_name}`,
           product_link: product.name,
-          telephone_number: product.telephone_number,
+          telephone_number: contactPerson?.contact_number,
         });
       }
       if (error) {
@@ -167,8 +167,7 @@ export default function Site({
     }
   };
 
-  const handleUpdate = async (event, values) => {
-    event.preventDefault();
+  const handleUpdate = async (values) => {
     setLoading(true);
 
     const {
@@ -179,6 +178,10 @@ export default function Site({
       product_price,
       product_type,
     } = values;
+
+    console.log(values)
+
+    console.log("tel", telephone_number, "values: ", values);
 
     const { data, error } = await supabase
       .from("websites")
@@ -266,7 +269,7 @@ export default function Site({
                   <p className="uppercase font-medium">CONTACT PERSON</p>
                   <p className="font-bold text-sm text-gray-700">
                     {contactPerson?.first_name + " " + contactPerson?.last_name}
-                    , {product.telephone_number}
+                    , {contactPerson?.contact_number}
                   </p>
                 </div>
 
@@ -499,7 +502,7 @@ export default function Site({
 export const getServerSideProps = async ({ req, res, params }) => {
   const { data: product } = await supabase
     .from("websites")
-    .select("*")
+    .select("*, profiles ( * )")
     .eq("id", params.id)
     .single();
 
